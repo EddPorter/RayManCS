@@ -1,5 +1,5 @@
 ﻿namespace WindowTracer {
-  partial class RealtimeWindow {
+  internal sealed partial class RealtimeWindow {
     /// <summary>
     /// Required designer variable.
     /// </summary>
