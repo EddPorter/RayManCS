@@ -31,7 +31,7 @@ namespace WindowTracer {
       func = new MyMethodInvoker(WritePixel);
     }
 
-    private delegate void MyMethodInvoker(uint x, uint y, Colour c);
+    private delegate void MyMethodInvoker(uint x, uint y, Color c);
 
     public uint Height {
       get;
@@ -43,14 +43,14 @@ namespace WindowTracer {
       private set;
     }
 
-    public void Write(uint x, uint y, Colour c) {
+    public void Write(uint x, uint y, Color c) {
       try {
         form.Invoke(func, x, y, c);
       } catch (InvalidOperationException) {
       }
     }
 
-    private void WritePixel(uint x, uint y, Colour c) {
+    private void WritePixel(uint x, uint y, Color c) {
       lock (g) {
         g.DrawLine(new Pen(c), (float)x, (float)y, (float)x + 0.5f, (float)y + 0.5f);
         image.SetPixel((int)x, (int)y, c);

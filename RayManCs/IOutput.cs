@@ -1,4 +1,5 @@
-﻿namespace RayManCS {
+﻿using System.Drawing;
+namespace RayManCS {
 
 /// <summary>
 /// An interface to consume the generated output from the ray tracer.
@@ -25,6 +26,6 @@ public interface IOutput {
   /// <param name="x">The x co-ordinate of the pixel being reported.</param>
   /// <param name="y">The y co-ordinate of the pixel being reported.</param>
   /// <param name="colour">The colour of the pixel being reported.</param>
-  void Write(uint x, uint y, Colour colour);
+  void Write(uint x, uint y, Color colour);
 }
 }

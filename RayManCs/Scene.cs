@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Drawing;
+using System.Threading.Tasks;
 
 namespace RayManCS {
 
@@ -36,14 +37,14 @@ namespace RayManCS {
         uint y = (uint)p / output.Width;
 
         Ray r = Camera.GetRay((uint)(x * widthRatio), (uint)(y * heightRatio));
-        Colour c = ShootRay(r);
+        Color c = ShootRay(r);
 
         output.Write(x, y, c);
       });
     }
 
-    private Colour ShootRay(Ray r) {
-      return new Colour(0.0f, 0.0f, 0.0f);
+    private Color ShootRay(Ray r) {
+      return Color.Black;
     }
   }
 }
