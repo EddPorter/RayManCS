@@ -43,7 +43,12 @@ namespace RayManCS {
       });
     }
 
-    private Color ShootRay(Ray r) {
+    /// <summary>
+    /// Shoot a ray into the scene and determine the colour at the impact point.
+    /// </summary>
+    /// <param name="ray">The ray to shoot into the scene.</param>
+    /// <returns>The colour of the impacted point in the scene.</returns>
+    private Color ShootRay(Ray ray) {
       return Color.Black;
     }
   }

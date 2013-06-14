@@ -50,7 +50,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
-    <Compile Include="Colour.cs" />
     <Compile Include="IOutput.cs" />
     <Compile Include="OrthographicCamera.cs" />
     <Compile Include="Point.cs" />
