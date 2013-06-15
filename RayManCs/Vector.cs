@@ -63,6 +63,16 @@ public sealed class Vector {
   public static Vector operator *(Vector v, float factor) {
     return new Vector(v.X * factor, v.Y * factor, v.Z * factor);
   }
+ 
+  /// <summary>
+  /// Computes the dot product of two vectors.
+  /// </summary>
+  /// <param name="lhs">The left vector.</param>
+  /// <param name="rhs">The right vector.</param>
+  /// <returns>The dot product of the two vectors.</returns>
+  public static float operator *(Vector lhs, Vector rhs) {
+    return lhs.X * rhs.X + lhs.Y * rhs.Y + lhs.Z * rhs.Z;
+  }
 
   /// <summary>
   /// Scales a vector by a given factor.

@@ -40,5 +40,15 @@ public sealed class Point {
     get;
     private set;
   }
+
+  /// <summary>
+  /// Calculates the vector between two points.
+  /// </summary>
+  /// <param name="lhs">The starting point.</param>
+  /// <param name="rhs">The finishing point.</param>
+  /// <returns>The vector between the two given points.</returns>
+  public static Vector operator -(Point lhs, Point rhs) {
+    return new Vector(lhs.X - rhs.X, lhs.Y - rhs.Y, lhs.Z - rhs.Z);
+  }
 }
 }

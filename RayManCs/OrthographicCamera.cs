@@ -19,7 +19,7 @@ public sealed class OrthographicCamera : Camera {
   : base(position, up, right, width, height) {
   }
 
-  internal override Ray GetRay(uint xp, uint yp) {
+  internal override Ray GetRay(float xp, float yp) {
     if (xp >= Width) {
       throw new ArgumentOutOfRangeException("xp");
     }
@@ -27,7 +27,7 @@ public sealed class OrthographicCamera : Camera {
       throw new ArgumentOutOfRangeException("yp");
     }
 
-    var planePosition = Position + ((xp / (float)Width) - 0.5 * Width) * Right + ((yp / (float)Height) - 0.5 * Height) * Up;
+    var planePosition = Position + (xp - 0.5 * Width) * Right + (yp - 0.5 * Height) * Up;
     var viewDirection = Right % Up;
 
     return new Ray(planePosition, viewDirection);

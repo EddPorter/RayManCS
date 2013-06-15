@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ObjectTests.cs" />
     <Compile Include="PointTests.cs" />
     <Compile Include="RayTests.cs" />
     <Compile Include="VectorTests.cs" />
@@ -65,9 +66,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="RayManCs.snk" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <Choose>

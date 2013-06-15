@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayManCS.Test", "RayManCs.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowTracer", "WindowTracer\WindowTracer.csproj", "{C53E960D-E99A-45DC-A29B-E5D6CFD25B43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullTracer", "NullTracer\NullTracer.csproj", "{80049AAA-4126-4B27-A3A4-A550336FB37C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JpegTracer", "JpegTracer\JpegTracer.csproj", "{3464F958-EC99-4A79-900E-9A8368F89E37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{C53E960D-E99A-45DC-A29B-E5D6CFD25B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C53E960D-E99A-45DC-A29B-E5D6CFD25B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C53E960D-E99A-45DC-A29B-E5D6CFD25B43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80049AAA-4126-4B27-A3A4-A550336FB37C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80049AAA-4126-4B27-A3A4-A550336FB37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80049AAA-4126-4B27-A3A4-A550336FB37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80049AAA-4126-4B27-A3A4-A550336FB37C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3464F958-EC99-4A79-900E-9A8368F89E37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3464F958-EC99-4A79-900E-9A8368F89E37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3464F958-EC99-4A79-900E-9A8368F89E37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3464F958-EC99-4A79-900E-9A8368F89E37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

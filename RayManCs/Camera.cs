@@ -67,6 +67,6 @@ public abstract class Camera {
   /// <param name="x">The local x co-ordinate on the 2-dimensional view plane.</param>
   /// <param name="y">The local y co-ordinate on the 2-dimensional view plane.</param>
   /// <returns>A ray passing through specified point on the view plane with the correct direction for the camera type.</returns>
-  internal abstract Ray GetRay(uint x, uint y);
+  internal abstract Ray GetRay(float x, float y);
 }
 }
