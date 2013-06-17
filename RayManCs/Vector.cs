@@ -63,7 +63,7 @@ public sealed class Vector {
   public static Vector operator *(Vector v, float factor) {
     return new Vector(v.X * factor, v.Y * factor, v.Z * factor);
   }
- 
+
   /// <summary>
   /// Computes the dot product of two vectors.
   /// </summary>
@@ -101,6 +101,18 @@ public sealed class Vector {
   /// <returns>The norm of the vector.</returns>
   public float Norm() {
     return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+  }
+
+  /// <summary>
+  /// Returns a vector in the same direction but with unit length.
+  /// </summary>
+  /// <returns>A vector in the same direction  as the original but with unit length.</returns>
+  public Vector Normalise() {
+    float length = this.Norm();
+    if (length == 0.0d) {
+      throw new InvalidOperationException("Vector has length zero.");
+    }
+    return this * (1.0f / length);
   }
 }
 }

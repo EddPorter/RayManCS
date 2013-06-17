@@ -32,7 +32,7 @@ internal sealed class JpegOutput : IOutput {
   public void Write(uint x, uint y, Color colour) {
     Pen p = new Pen(colour);
     lock (image) {
-      image.SetPixel((int)x, (int)y, colour);
+      image.SetPixel((int)x, (int)(Height - y - 1), colour);
     }
   }
 }

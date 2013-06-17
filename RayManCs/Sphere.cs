@@ -47,5 +47,15 @@ public sealed class Sphere : Object {
     }
     return t.Value;
   }
+
+  /// <summary>
+  /// Calculates the normal vector to the surface of the sphere at the given point.
+  /// </summary>
+  /// <param name="point">The point on the surface of the sphere.</param>
+  /// <returns>The normalised normal vector to the surface of the sphere at the given point.</returns>
+  public override Vector GetNormalAtPoint(Point point) {
+    // Assume that the given point is on the surface.
+    return (point - Centre).Normalise();
+  }
 }
 }

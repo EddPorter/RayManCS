@@ -8,6 +8,13 @@ namespace RayManCS {
 public abstract class Object : IObject {
 
   /// <summary>
+  /// Calculates the normal vector to the surface of the object at the given point.
+  /// </summary>
+  /// <param name="point">The point on the surface of the object.</param>
+  /// <returns>The normalised normal vector to the surface of the object at the given point.</returns>
+  public abstract Vector GetNormalAtPoint(Point point);
+
+  /// <summary>
   /// Calculates the distance along the specified ray the first intersection with this object occurs.
   /// </summary>
   /// <param name="ray">The ray to test.</param>
