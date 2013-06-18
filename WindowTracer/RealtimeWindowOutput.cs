@@ -51,7 +51,7 @@ internal sealed class RealtimeWindowOutput : IOutput {
   private void WritePixel(uint x, uint y, Color c) {
     lock (g) {
       g.DrawLine(new Pen(c), (float)x, (float)y, (float)x + 0.5f, (float)y + 0.5f);
-      image.SetPixel((int)x, (int)y, c);
+      image.SetPixel((int)x, (int)(Height - y - 1), c);
     }
   }
 }

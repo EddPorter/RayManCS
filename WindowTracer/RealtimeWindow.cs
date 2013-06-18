@@ -18,11 +18,12 @@ internal sealed partial class RealtimeWindow : Form {
     scene.Camera = new OrthographicCamera(new RayManCS.Point(0.0f, 0.0f, 0.0f), new Vector(0.0f, 1.0f, 0.0f), new Vector(1.0f, 0.0f, 0.0f), 80, 60);
 
     scene.AddObject(new Sphere(new Point(-5.0f, -5.0f, 50.0f), 10.0f));
-    scene.AddObject(new Sphere(new Point(-20.0f, -20.0f, 150.0f), 5.0f));
+    scene.AddObject(new Sphere(new Point(-20.0f, 10.0f, 150.0f), 5.0f));
     scene.AddObject(new Sphere(new Point(20.0f, 10.0f, 100.0f), 15.0f));
     scene.AddObject(new Sphere(new Point(0.0f, -15.0f, 150.0f), 5.0f));
 
     scene.AddLight(new DiffuseLight(new Point(-50.0f, 0.0f, 0.0f), new Vector(50.0f, 0.0f, 100.0f)));
+    scene.AddLight(new DiffuseLight(new Point(0.0f, 1000.0f, 1000.0f), new Vector(0.0f, -1000.0f, -1000.0f)));
   }
 
   private void Form1_FormClosing(object sender, FormClosingEventArgs e) {

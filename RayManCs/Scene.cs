@@ -70,7 +70,7 @@ public sealed class Scene {
     float heightRatio = (float)Camera.Height / output.Height;
 
     ParallelOptions options = new ParallelOptions() {
-      MaxDegreeOfParallelism = 1
+      //MaxDegreeOfParallelism = 1
     };
     Parallel.For(0, output.Height, options, (y) => {
     //Parallel.For(0, output.Height, (y) => {
