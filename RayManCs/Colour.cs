@@ -1,4 +1,6 @@
-﻿namespace RayManCS {
+﻿using System;
+
+namespace RayManCS {
 
 /// <summary>
 /// Represents a colour.
@@ -42,12 +44,21 @@ public sealed class Colour {
   }
 
   /// <summary>
+  /// Converts a .NET Color object to a new Colour object.
+  /// </summary>
+  /// <param name="colour">The Color to convert.</param>
+  /// <returns>The new Colour object.</returns>
+  public static implicit operator Colour(System.Drawing.Color colour) {
+    return new Colour(colour.R / 255.0f, colour.G / 255.0f, colour.B / 255.0f);
+  }
+
+  /// <summary>
   /// Converts the Colour object to a .NET Color object.
   /// </summary>
   /// <param name="colour">The Colour to convert.</param>
   /// <returns>The converted Colour object.</returns>
   public static implicit operator System.Drawing.Color(Colour colour) {
-    return System.Drawing.Color.FromArgb((int)(colour.Red * 255), (int)(colour.Green * 255), (int)(colour.Blue * 255));
+    return System.Drawing.Color.FromArgb(Math.Min((int)(colour.Red * 255), 255), Math.Min((int)(colour.Green * 255), 255), Math.Min((int)(colour.Blue * 255), 255));
   }
 
   /// <summary>
@@ -58,6 +69,16 @@ public sealed class Colour {
   /// <returns>The scaled colour.</returns>
   public static Colour operator *(Colour colour, float factor) {
     return new Colour(colour.Red * factor, colour.Green * factor, colour.Blue * factor);
+  }
+
+  /// <summary>
+  /// Multiplies two colours together, componentwise.
+  /// </summary>
+  /// <param name="lhs">The first colour to multiply.</param>
+  /// <param name="rhs">The second colour to multiply.</param>
+  /// <returns>The new colour.</returns>
+  public static Colour operator *(Colour lhs, Colour rhs) {
+    return new Colour(lhs.Red * rhs.Red, lhs.Green * rhs.Green, lhs.Blue * rhs.Blue);
   }
 
   /// <summary>

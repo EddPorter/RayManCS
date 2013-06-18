@@ -1,4 +1,6 @@
-﻿namespace RayManCS {
+﻿using System.Drawing;
+
+namespace RayManCS {
 
 /// <summary>
 /// An abstract light source.
@@ -9,18 +11,18 @@ public abstract class Light {
   /// Creates a new light.
   /// </summary>
   /// <param name="location">The location of the light.</param>
-  /// <param name="direction">The direction of the light.</param>
-  public Light(Point location, Vector direction) {
+  public Light(Point location) {
     Location = location;
-    Direction = direction.Normalise();
+
+    Colour = Color.White;
   }
 
   /// <summary>
-  /// Gets the direction of the light.
+  /// The colour of the light.
   /// </summary>
-  public Vector Direction {
+  public Color Colour {
     get;
-    private set;
+    set;
   }
 
   /// <summary>

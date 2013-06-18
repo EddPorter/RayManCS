@@ -16,8 +16,8 @@ internal static class Program {
     scene.AddObject(new Sphere(new Point(20.0f, 10.0f, 100.0f), 15.0f));
     scene.AddObject(new Sphere(new Point(0.0f, -15.0f, 150.0f), 5.0f));
 
-    scene.AddLight(new DiffuseLight(new Point(-50.0f, 0.0f, 0.0f), new Vector(50.0f, 0.0f, 100.0f)));
-    scene.AddLight(new DiffuseLight(new Point(0.0f, 1000.0f, 1000.0f), new Vector(0.0f, -1000.0f, -1000.0f)));
+    scene.AddLight(new DiffuseLight(new Point(-50.0f, 0.0f, 0.0f)));
+    scene.AddLight(new DiffuseLight(new Point(0.0f, 1000.0f, 1000.0f)));
 
     scene.Draw();
   }

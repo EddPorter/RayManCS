@@ -55,6 +55,7 @@
     <Compile Include="IObject.cs" />
     <Compile Include="IOutput.cs" />
     <Compile Include="Light.cs" />
+    <Compile Include="Material.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="OrthographicCamera.cs" />
     <Compile Include="Point.cs" />

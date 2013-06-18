@@ -8,6 +8,21 @@ namespace RayManCS {
 public abstract class Object : IObject {
 
   /// <summary>
+  /// Sets properties to default values.
+  /// </summary>
+  protected Object() {
+    Material = new Material();
+  }
+
+  /// <summary>
+  /// Gets and sets the object's material.
+  /// </summary>
+  public Material Material {
+    get;
+    set;
+  }
+
+  /// <summary>
   /// Calculates the normal vector to the surface of the object at the given point.
   /// </summary>
   /// <param name="point">The point on the surface of the object.</param>

@@ -18,5 +18,12 @@ public interface IObject {
   /// <param name="point">The point on the surface of the object.</param>
   /// <returns>The normalised normal vector to the surface of the object at the given point.</returns>
   Vector GetNormalAtPoint(Point point);
+
+  /// <summary>
+  /// Gets the object's material.
+  /// </summary>
+  Material Material {
+    get;
+  }
 }
 }
