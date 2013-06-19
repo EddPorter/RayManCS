@@ -2,35 +2,35 @@
 
 namespace RayManCS {
 
-/// <summary>
-/// An abstract light source.
-/// </summary>
-public abstract class Light {
-
   /// <summary>
-  /// Creates a new light.
+  /// An abstract light source.
   /// </summary>
-  /// <param name="location">The location of the light.</param>
-  public Light(Point location) {
-    Location = location;
+  public abstract class Light {
 
-    Colour = Color.White;
-  }
+    /// <summary>
+    /// Creates a new light.
+    /// </summary>
+    /// <param name="location">The location of the light.</param>
+    public Light(Point location) {
+      Location = location;
 
-  /// <summary>
-  /// The colour of the light.
-  /// </summary>
-  public Color Colour {
-    get;
-    set;
-  }
+      Colour = Color.White;
+    }
 
-  /// <summary>
-  /// The location of the light source.
-  /// </summary>
-  public Point Location {
-    get;
-    private set;
+    /// <summary>
+    /// The colour of the light.
+    /// </summary>
+    public Color Colour {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The location of the light source.
+    /// </summary>
+    public Point Location {
+      get;
+      private set;
+    }
   }
-}
 }

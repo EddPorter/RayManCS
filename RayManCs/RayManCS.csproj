@@ -64,6 +64,7 @@
     <Compile Include="Scene.cs" />
     <Compile Include="Sphere.cs" />
     <Compile Include="Vector.cs" />
+    <Compile Include="XmlSceneReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RayManCs.snk" />
@@ -72,6 +73,7 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
