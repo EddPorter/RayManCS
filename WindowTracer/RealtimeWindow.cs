@@ -11,11 +11,11 @@ namespace WindowTracer {
     private Scene scene;
     private Thread t;
 
-    public RealtimeWindow() {
+    public RealtimeWindow(string fileName) {
       InitializeComponent();
       output = new RealtimeWindowOutput(640, 480, this);
       XmlSceneReader reader = new XmlSceneReader();
-      scene = reader.Load("Scene.xml", output);
+      scene = reader.Load(fileName, output);
     }
 
     private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
