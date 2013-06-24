@@ -27,15 +27,30 @@ namespace RayManCS {
       document.Load(filename);
       Scene scene = new Scene(output);
 
-      AddCamera(document["Scene"], scene);
-      AddLights(document["Scene"], scene);
-      AddObjects(document["Scene"], scene);
+      ConfigureScene(document["RayMan"], scene);
+      AddCamera(document["RayMan"], scene);
+      AddLights(document["RayMan"], scene);
+      AddObjects(document["RayMan"], scene);
 
       return scene;
     }
 
-    private void AddCamera(XmlNode sceneNode, Scene scene) {
-      var cameraNode = sceneNode["Camera"];
+    private void ConfigureScene(XmlNode rayManNode, Scene scene) {
+      var sceneNode = rayManNode["Scene"];
+
+      foreach (XmlNode node in sceneNode.ChildNodes) {
+        switch(node.Name){
+          case "SubSampling":
+            scene.SubSampling = uint.Parse(node.InnerText);
+            break;
+          default:
+            throw new InvalidOperationException("Scene file is not recognised.");
+        }
+      }
+    }
+
+    private void AddCamera(XmlNode rayManNode, Scene scene) {
+      var cameraNode = rayManNode["Camera"];
       var camera = cameraNode.ChildNodes[0];
 
       var objectType = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.Name == camera.Name);
@@ -53,8 +68,8 @@ namespace RayManCS {
       scene.Camera = Activator.CreateInstance(objectType, new object[] { position, up, right, width, height }) as Camera;
     }
 
-    private void AddLights(XmlNode sceneNode, Scene scene) {
-      var lightNodes = sceneNode["Lights"];
+    private void AddLights(XmlNode rayManNode, Scene scene) {
+      var lightNodes = rayManNode["Lights"];
       foreach (XmlNode light in lightNodes.ChildNodes) {
         var objectType = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.Name == light.Name);
         Point position = CreatePosition(light["Position"].InnerText);
@@ -65,14 +80,14 @@ namespace RayManCS {
       }
     }
 
-    private void AddObjects(XmlNode sceneNode, Scene scene) {
-      var objectNodes = sceneNode["Objects"];
+    private void AddObjects(XmlNode rayManNode, Scene scene) {
+      var objectNodes = rayManNode["Objects"];
       foreach (XmlNode o in objectNodes.ChildNodes) {
         var objectType = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.Name == o.Name);
         Point centre = CreatePosition(o["Centre"].InnerText);
         float size = float.Parse(o["Size"].InnerText);
         var obj = Activator.CreateInstance(objectType, new object[] { centre, size }) as Object;
-        obj.Material = CreateMaterial(sceneNode, o["Material"]);
+        obj.Material = CreateMaterial(rayManNode, o["Material"]);
         scene.AddObject(obj);
       }
     }

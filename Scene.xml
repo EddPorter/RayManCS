@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Scene Version="0.1">
+<RayMan Version="0.1">
+  <Scene>
+    <SubSampling>2</SubSampling>
+  </Scene>
   <Camera>
     <OrthographicCamera>
       <Position>320.0, 240.0, -1000.0</Position>
@@ -62,4 +65,4 @@
       <Colour>0.6, 0.7, 1.0</Colour>
     </DiffuseLight>
   </Lights>
-</Scene>
+</RayMan>

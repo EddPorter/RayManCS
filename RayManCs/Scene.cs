@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.Threading.Tasks;
 
 namespace RayManCS {
@@ -18,6 +17,8 @@ public sealed class Scene {
   /// <param name="output">The class to which to send the generated image.</param>
   public Scene(IOutput output) {
     this.output = output;
+
+    SubSampling = 1u;
   }
 
   /// <summary>
@@ -47,6 +48,14 @@ public sealed class Scene {
   }
 
   /// <summary>
+  /// Gets and sets the length of side of the sub-sampling square to use. Default = 1 (no sub-sampling).
+  /// </summary>
+  public uint SubSampling {
+    get;
+    set;
+  }
+
+  /// <summary>
   /// Adds a light to the scene.
   /// </summary>
   /// <param name="l">The light to add.</param>
@@ -70,15 +79,28 @@ public sealed class Scene {
     float heightRatio = (float)Camera.Height / output.Height;
 
     ParallelOptions options = new ParallelOptions() {
-      //MaxDegreeOfParallelism = 1
+#if DEBUG
+      //      MaxDegreeOfParallelism = 1
+#endif
     };
     Parallel.For(0, output.Height, options, (y) => {
-      //Parallel.For(0, output.Height, (y) => {
       for (var x = 0u; x < output.Width; ++x) {
-        Ray r = Camera.GetRay(x * widthRatio, y * heightRatio);
-        Color c = ShootRay(r);
+        float sampleWidth = 1.0f / SubSampling;
+        float weight = sampleWidth / SubSampling;
 
-        output.Write((uint)x, (uint)y, c);
+        Colour outputColour = new Colour(0.0f, 0.0f, 0.0f);
+
+        uint countX = 0u;
+        for (float sampleX = x; countX < SubSampling; sampleX += sampleWidth, ++countX) {
+          uint countY = 0u;
+          for (float sampleY = y; countY < SubSampling; sampleY += sampleWidth, ++countY) {
+            Ray r = Camera.GetRay(sampleX * widthRatio, sampleY * heightRatio);
+            Colour c = ShootRay(r);
+            outputColour += c * weight;
+          }
+        }
+
+        output.Write((uint)x, (uint)y, outputColour);
       }
     });
   }
@@ -88,7 +110,7 @@ public sealed class Scene {
   /// </summary>
   /// <param name="ray">The ray to shoot into the scene.</param>
   /// <returns>The colour of the impacted point in the scene.</returns>
-  private Color ShootRay(Ray ray) {
+  private Colour ShootRay(Ray ray) {
     Colour output = new Colour(0.0f, 0.0f, 0.0f);
 
     IObject closestObject = null;
