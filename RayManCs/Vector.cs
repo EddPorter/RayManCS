@@ -55,16 +55,6 @@ namespace RayManCS {
     }
 
     /// <summary>
-    /// Scales a vector by a given factor.
-    /// </summary>
-    /// <param name="v"></param>
-    /// <param name="factor"></param>
-    /// <returns></returns>
-    public static Vector operator *(Vector v, float factor) {
-      return new Vector(v.X * factor, v.Y * factor, v.Z * factor);
-    }
-
-    /// <summary>
     /// Computes the dot product of two vectors.
     /// </summary>
     /// <param name="lhs">The left vector.</param>
@@ -77,9 +67,9 @@ namespace RayManCS {
     /// <summary>
     /// Scales a vector by a given factor.
     /// </summary>
-    /// <param name="v"></param>
-    /// <param name="factor"></param>
-    /// <returns></returns>
+    /// <param name="factor">The factor by which to scale the vector.</param>
+    /// <param name="v">The vector to scale.</param>
+    /// <returns>The scaled vector.</returns>
     public static Vector operator *(double factor, Vector v) {
       return new Vector((float)(v.X * factor), (float)(v.Y * factor), (float)(v.Z * factor));
     }
@@ -112,7 +102,7 @@ namespace RayManCS {
       if (length == 0.0d) {
         throw new InvalidOperationException("Vector has length zero.");
       }
-      return this * (1.0f / length);
+      return (1.0f / length) * this;
     }
   }
 }

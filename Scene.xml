@@ -6,7 +6,7 @@
   <Camera>
     <OrthographicCamera>
       <Position>320.0, 240.0, -1000.0</Position>
-      <Up>0.0, 1.0, 0.0</Up>
+      <Up>0.2, 1.0, 0.0</Up>
       <Right>1.0, 0.0, 0.0</Right>
       <Width>640</Width>
       <Height>480</Height>

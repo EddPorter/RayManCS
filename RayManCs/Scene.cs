@@ -145,7 +145,7 @@ public sealed class Scene {
           break;
         }
       }
-
+      
       if (!inShadow) {
         var lambertianReflectance = new Colour(0.0f, 0.0f, 0.0f);
         float cosineLightAngle = normal * toLightSource;

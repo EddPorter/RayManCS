@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RayMan Version="0.1">
+  <Scene>
+    <SubSampling>1</SubSampling>
+  </Scene>
+  <Camera>
+    <OrthographicCamera>
+      <Position>20.0, 20.0, -50.0</Position>
+      <LookAt>0.0, 5.0, 0.0</LookAt>
+      <Width>64</Width>
+      <Height>48</Height>
+    </OrthographicCamera>
+  </Camera>
+  <Materials>
+    <Material id="0">
+      <Colour>0.8, 0.2, 0.2</Colour>
+    </Material>
+    <Material id="1">
+      <Colour>0.2, 0.8, 0.2</Colour>
+    </Material>
+    <Material id="2">
+      <Colour>0.2, 0.2, 0.8</Colour>
+    </Material>
+    <Material id="3">
+      <Colour>0.9, 0.9, 0.9</Colour>
+    </Material>
+  </Materials>
+  <Objects>
+    <Triangle>
+      <P1>-10.0, 10.0, -10.0</P1>
+      <P2>10.0, 10.0, 10.0</P2>
+      <P3>10.0, 10.0, -10.0</P3>
+      <Material id="0" />
+    </Triangle>
+    <Triangle>
+      <P1>-10.0, 10.0, -10.0</P1>
+      <P2>-10.0, 10.0, 10.0</P2>
+      <P3>10.0, 10.0, 10.0</P3>
+      <Material id="0" />
+    </Triangle>
+    <Triangle>
+      <P1>-10.0, -10.0, -10.0</P1>
+      <P2>10.0, -10.0, -10.0</P2>
+      <P3>10.0, -10.0, 10.0</P3>
+      <Material id="3" />
+    </Triangle>
+    <Triangle>
+      <P1>-10.0, -10.0, -10.0</P1>
+      <P2>10.0, -10.0, 10.0</P2>
+      <P3>-10.0, -10.0, 10.0</P3>
+      <Material id="3" />
+    </Triangle>
+    <Triangle>
+      <P1>-10.0, -10.0, -10.0</P1>
+      <P2>-10.0, -10.0, 10.0</P2>
+      <P3>-10.0, 10.0, 10.0</P3>
+      <Material id="3" />
+    </Triangle>
+    <Triangle>
+      <P1>-10.0, -10.0, -10.0</P1>
+      <P2>-10.0, 10.0, 10.0</P2>
+      <P3>-10.0, 10.0, -10.0</P3>
+      <Material id="3" />
+    </Triangle>
+    <Triangle>
+      <P1>10.0, -10.0, -10.0</P1>
+      <P2>10.0, 10.0, 10.0</P2>
+      <P3>10.0, -10.0, 10.0</P3>
+      <Material id="1" />
+    </Triangle>
+    <Triangle>
+      <P1>10.0, -10.0, -10.0</P1>
+      <P2>10.0, 10.0, -10.0</P2>
+      <P3>10.0, 10.0, 10.0</P3>
+      <Material id="1" />
+    </Triangle>
+    <Triangle>
+      <P1>-10.0, -10.0, -10.0</P1>
+      <P2>-10.0, 10.0, -10.0</P2>
+      <P3>10.0, -10.0, -10.0</P3>
+      <Material id="2" />
+    </Triangle>
+    <Triangle>
+      <P1>-10.0, 10.0, -10.0</P1>
+      <P2>10.0, 10.0, -10.0</P2>
+      <P3>10.0, -10.0, -10.0</P3>
+      <Material id="2" />
+    </Triangle>
+    <Triangle>
+      <P1>-10.0, -10.0, 10.0</P1>
+      <P2>10.0, -10.0, 10.0</P2>
+      <P3>-10.0, 10.0, 10.0</P3>
+      <Material id="3" />
+    </Triangle>
+    <Triangle>
+      <P1>-10.0, 10.0, 10.0</P1>
+      <P2>10.0, -10.0, 10.0</P2>
+      <P3>10.0, 10.0, 10.0</P3>
+      <Material id="3" />
+    </Triangle>
+  </Objects>
+  <Lights>
+    <DiffuseLight>
+      <Position>50.0, 50.0, -50.0</Position>
+      <Colour>1.0, 1.0, 1.0</Colour>
+    </DiffuseLight>
+    <DiffuseLight>
+      <Position>-50.0, -50.0, 50.0</Position>
+      <Colour>1.0, 1.0, 1.0</Colour>
+    </DiffuseLight>
+  </Lights>
+</RayMan>

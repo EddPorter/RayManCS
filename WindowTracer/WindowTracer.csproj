@@ -85,10 +85,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Scene.xml">
-      <Link>Scene.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
+    <Content Include="..\Box.xml">
+      <Link>Box.xml</Link>
     </Content>
     <Content Include="..\Shadow.xml" />
   </ItemGroup>
