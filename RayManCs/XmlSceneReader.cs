@@ -122,6 +122,12 @@ public sealed class XmlSceneReader {
 
     Material m = new Material();
     m.Colour = CreateColour(material["Colour"].InnerText);
+    if (material["SpecularTerm"] != null) {
+      m.SpecularTerm = float.Parse(material["SpecularTerm"].InnerText);
+    }
+    if (material["SpecularPower"] != null) {
+      m.SpecularPower = float.Parse(material["SpecularPower"].InnerText);
+    }
 
     return m;
   }

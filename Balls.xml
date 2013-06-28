@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RayMan Version="0.1">
-  <Scene></Scene>
+  <Scene>
+    <SubSampling>1</SubSampling>
+  </Scene>
   <Camera>
     <OrthographicCamera>
       <Position>320.0, 240.0, -1000.0</Position>
@@ -12,31 +14,40 @@
   </Camera>
   <Materials>
     <Material id="0">
-      <Colour>0.35, 0.25, 0.01</Colour>
+      <Colour>1.0, 1.0, 0.0</Colour>
     </Material>
     <Material id="1">
-      <Colour>1.0, 1.0, 1.0</Colour>
+      <Colour>0.0, 1.0, 1.0</Colour>
     </Material>
     <Material id="2">
-      <Colour>0.5, 0.5, 0.5</Colour>
+      <Colour>1.0, 0.0, 1.0</Colour>
     </Material>
   </Materials>
   <Objects>
     <Sphere>
-      <Centre>400.0, 340.0, 500.0</Centre>
-      <Size>200.0</Size>
+      <Centre>233.0, 290.0, 0.0</Centre>
+      <Size>100.0</Size>
+      <Material id="0" />
+    </Sphere>
+    <Sphere>
+      <Centre>407.0, 290.0, 0.0</Centre>
+      <Size>100.0</Size>
       <Material id="1" />
     </Sphere>
     <Sphere>
-      <Centre>220.0, 240.0, 200.0</Centre>
-      <Size>50.0</Size>
+      <Centre>320.0, 140.0, 0.0</Centre>
+      <Size>100.0</Size>
       <Material id="2" />
     </Sphere>
   </Objects>
   <Lights>
     <DiffuseLight>
-      <Position>50, 100.0, -100.0</Position>
+      <Position>0.0, 240.0, -100.0</Position>
       <Colour>1.0, 1.0, 1.0</Colour>
+    </DiffuseLight>
+    <DiffuseLight>
+      <Position>640.0, 240.0, -10000.0</Position>
+      <Colour>0.6, 0.7, 1.0</Colour>
     </DiffuseLight>
   </Lights>
 </RayMan>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RayManCS {
@@ -80,7 +81,7 @@ public sealed class Scene {
 
     ParallelOptions options = new ParallelOptions() {
 #if DEBUG
-      //      MaxDegreeOfParallelism = 1
+      MaxDegreeOfParallelism = 1
 #endif
     };
     Parallel.For(0, output.Height, options, (y) => {
@@ -134,6 +135,11 @@ public sealed class Scene {
 
     foreach (var l in Lights) {
       Vector toLightSource = (l.Location - intersection).Normalise();
+      float cosineLightAngle = normal * toLightSource;
+      if (cosineLightAngle <= 0.0f) {
+        // The light is below the surface.
+        continue;
+      }
 
       bool inShadow = false;
       foreach (var o in Objects) {
@@ -145,15 +151,24 @@ public sealed class Scene {
           break;
         }
       }
-      
+
       if (!inShadow) {
-        var lambertianReflectance = new Colour(0.0f, 0.0f, 0.0f);
-        float cosineLightAngle = normal * toLightSource;
-        if (cosineLightAngle > 0.0f) {
-          // Light is above the surface: -90degrees < light < 90degrees.
-          lambertianReflectance = (Colour)closestObject.Material.Colour * (Colour)l.Colour * cosineLightAngle;
-        }
+        var lambertianReflectance = (Colour)closestObject.Material.Colour * (Colour)l.Colour * cosineLightAngle;
         output += lambertianReflectance;
+
+        var R = (toLightSource - 2 * normal * (normal * toLightSource)).Normalise();
+        var specularTerm = R * ray.Direction;
+        if (specularTerm >= 0.0f) {
+          var phong = (Colour)l.Colour * closestObject.Material.SpecularTerm * (float)Math.Pow(specularTerm, closestObject.Material.SpecularPower);
+          output += phong;
+        }
+
+        //var blinn = toLightSource - ray.Direction;
+        //if (blinn.X != 0.0f && blinn.Y != 0.0f && blinn.Z != 0.0f) {
+        //  blinn = blinn.Normalise();
+        //  var blinnTerm = (Colour)l.Colour * closestObject.Material.SpecularTerm * (float)Math.Pow(Math.Max(blinn * normal, 0.0f), closestObject.Material.SpecularPower);
+        //  output += blinnTerm;
+        //}
       }
     }
 

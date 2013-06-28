@@ -85,6 +85,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Balls.xml" />
     <Content Include="..\Box.xml">
       <Link>Box.xml</Link>
     </Content>

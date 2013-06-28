@@ -6,7 +6,7 @@
   <Camera>
     <OrthographicCamera>
       <Position>320.0, 240.0, -1000.0</Position>
-      <Up>0.2, 1.0, 0.0</Up>
+      <Up>0.0, 1.0, 0.0</Up>
       <Right>1.0, 0.0, 0.0</Right>
       <Width>640</Width>
       <Height>480</Height>
@@ -15,12 +15,16 @@
   <Materials>
     <Material id="0">
       <Colour>0.35, 0.25, 0.01</Colour>
+      <SpecularTerm>1.2</SpecularTerm>
+      <SpecularPower>60</SpecularPower>
     </Material>
     <Material id="1">
       <Colour>1.0, 1.0, 1.0</Colour>
     </Material>
     <Material id="2">
       <Colour>0.5, 0.5, 0.5</Colour>
+      <SpecularTerm>1.0</SpecularTerm>
+      <SpecularPower>10</SpecularPower>
     </Material>
   </Materials>
   <Objects>

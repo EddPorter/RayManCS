@@ -67,7 +67,7 @@ public sealed class OrthographicCamera : Camera {
     }
 
     var planePosition = Position + (xp - 0.5 * Width) * Right + (yp - 0.5 * Height) * Up;
-    var viewDirection = Right % Up;
+    var viewDirection = (Right % Up).Normalise();
 
     return new Ray(planePosition, viewDirection);
   }

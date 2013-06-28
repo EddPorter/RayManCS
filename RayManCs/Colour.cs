@@ -80,6 +80,16 @@ public sealed class Colour {
   /// <param name="factor">The scaling factor.</param>
   /// <returns>The scaled colour.</returns>
   public static Colour operator *(Colour colour, float factor) {
+    return factor * colour;
+  }
+
+  /// <summary>
+  /// Scales a colour by a given factor.
+  /// </summary>
+  /// <param name="factor">The scaling factor.</param>
+  /// <param name="colour">The colour to scale.</param>
+  /// <returns>The scaled colour.</returns>
+  public static Colour operator *(float factor, Colour colour) {
     if (colour == null) {
       throw new ArgumentNullException("colour");
     }
