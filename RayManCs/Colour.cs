@@ -23,9 +23,6 @@ public sealed class Colour {
     if (blue < 0.0f) {
       throw new ArgumentOutOfRangeException("blue");
     }
-    //Red = Math.Min(red, 1.0f);
-    //Green = Math.Min(green, 1.0f);
-    //Blue = Math.Min(blue, 1.0f);
     Red = red;
     Green = green;
     Blue = blue;
@@ -132,6 +129,24 @@ public sealed class Colour {
       throw new ArgumentNullException("rhs");
     }
     return new Colour(lhs.Red + rhs.Red, lhs.Green + rhs.Green, lhs.Blue + rhs.Blue);
+  }
+
+  /// <summary>
+  /// Converts the colour to a new sRGB-encoded Colour.
+  /// </summary>
+  /// <remarks>Algorithm from http://en.wikipedia.org/wiki/SRGB. sRGB is defined in IEC 61966-2-1:1999.</remarks>
+  /// <returns>A new sRGB-encoded Colour.</returns>
+  internal Colour ToSrgb() {
+    Func<float, float> transform = (linear) => {
+      var clipped = Math.Min(linear, 1.0f);
+      if (clipped <= 0.0031308) {
+        return 12.92f * clipped;
+      } else {
+        const float a = 0.055f;
+        return (float)((1 + a) * Math.Pow(clipped, 1.0 / 2.4) - a);
+      }
+    };
+    return new Colour(transform(Red), transform(Green), transform(Blue));
   }
 }
 }

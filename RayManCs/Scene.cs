@@ -110,7 +110,8 @@ public sealed class Scene {
           }
         }
 
-        output.Write((uint)x, (uint)y, outputColour);
+        Colour sRgbColour = outputColour.ToSrgb();
+        output.Write((uint)x, (uint)y, sRgbColour);
       }
     });
   }
