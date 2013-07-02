@@ -23,9 +23,12 @@ public sealed class Colour {
     if (blue < 0.0f) {
       throw new ArgumentOutOfRangeException("blue");
     }
-    Red = Math.Min(red, 1.0f);
-    Green = Math.Min(green, 1.0f);
-    Blue = Math.Min(blue, 1.0f);
+    //Red = Math.Min(red, 1.0f);
+    //Green = Math.Min(green, 1.0f);
+    //Blue = Math.Min(blue, 1.0f);
+    Red = red;
+    Green = green;
+    Blue = blue;
   }
 
   /// <summary>

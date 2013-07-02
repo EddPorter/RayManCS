@@ -15,12 +15,21 @@
   <Materials>
     <Material id="0">
       <Colour>1.0, 1.0, 0.0</Colour>
+      <SpecularPower>60</SpecularPower>
+      <SpecularTerm>1.0</SpecularTerm>
+      <Reflectance>0.5</Reflectance>
     </Material>
     <Material id="1">
       <Colour>0.0, 1.0, 1.0</Colour>
+      <SpecularPower>60</SpecularPower>
+      <SpecularTerm>1.0</SpecularTerm>
+      <Reflectance>0.5</Reflectance>
     </Material>
     <Material id="2">
       <Colour>1.0, 0.0, 1.0</Colour>
+      <SpecularPower>60</SpecularPower>
+      <SpecularTerm>1.0</SpecularTerm>
+      <Reflectance>0.5</Reflectance>
     </Material>
   </Materials>
   <Objects>

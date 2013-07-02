@@ -20,6 +20,7 @@
     </Material>
     <Material id="1">
       <Colour>1.0, 1.0, 1.0</Colour>
+      <Reflectance>0.8</Reflectance>
     </Material>
     <Material id="2">
       <Colour>0.5, 0.5, 0.5</Colour>

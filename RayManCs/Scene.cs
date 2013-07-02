@@ -8,6 +8,7 @@ namespace RayManCS {
 /// Represents a scene to be ray traced.
 /// </summary>
 public sealed class Scene {
+  private const uint MAX_ITERATIONS = 10;
   private List<Light> lights = new List<Light>();
   private List<IObject> objects = new List<IObject>();
   private IOutput output;
@@ -76,12 +77,15 @@ public sealed class Scene {
   /// Renders the image.
   /// </summary>
   public void Draw() {
+    // pseudo photo exposure
+    const float exposure = -1.00f;
+
     float widthRatio = (float)Camera.Width / output.Width;
     float heightRatio = (float)Camera.Height / output.Height;
 
     ParallelOptions options = new ParallelOptions() {
 #if DEBUG
-      MaxDegreeOfParallelism = 1
+      //MaxDegreeOfParallelism = 1
 #endif
     };
     Parallel.For(0, output.Height, options, (y) => {
@@ -97,7 +101,12 @@ public sealed class Scene {
           for (float sampleY = y; countY < SubSampling; sampleY += sampleWidth, ++countY) {
             Ray r = Camera.GetRay(sampleX * widthRatio, sampleY * heightRatio);
             Colour c = ShootRay(r);
-            outputColour += c * weight;
+
+            Colour exposedColour = new Colour(1.0f - (float)Math.Exp(c.Red * exposure),
+                                              1.0f - (float)Math.Exp(c.Green * exposure),
+                                              1.0f - (float)Math.Exp(c.Blue * exposure));
+
+            outputColour += exposedColour * weight;
           }
         }
 
@@ -112,67 +121,70 @@ public sealed class Scene {
   /// <param name="ray">The ray to shoot into the scene.</param>
   /// <returns>The colour of the impacted point in the scene.</returns>
   private Colour ShootRay(Ray ray) {
-    Colour output = new Colour(0.0f, 0.0f, 0.0f);
+    Colour finalOutput = new Colour(0.0f, 0.0f, 0.0f);
+    float coefficient = 1.0f;
+    uint count = 0u;
 
-    IObject closestObject = null;
-    float closestDistance = float.MaxValue;
-    foreach (var o in Objects) {
-      float t = o.IntersectDistance(ray);
-      if (t >= 0.0f && t < closestDistance) {
-        closestObject = o;
-        closestDistance = t;
-      }
-    }
-    if (closestObject == null) {
-      return output;
-    }
-
-    // Calculate the point of intersection.
-    Point intersection = ray.Start + closestDistance * ray.Direction;
-
-    // Get normal of object surface at impact of ray.
-    Vector normal = closestObject.GetNormalAtPoint(intersection);
-
-    foreach (var l in Lights) {
-      Vector toLightSource = (l.Location - intersection).Normalise();
-      float cosineLightAngle = normal * toLightSource;
-      if (cosineLightAngle <= 0.0f) {
-        // The light is below the surface.
-        continue;
-      }
-
-      bool inShadow = false;
+    do {
+      Colour output = new Colour(0.0f, 0.0f, 0.0f);
+      IObject closestObject = null;
+      float closestDistance = float.MaxValue;
       foreach (var o in Objects) {
-        if (o == closestObject) {
+        float t = o.IntersectDistance(ray);
+        if (t > 0.001f && t < closestDistance) {
+          closestObject = o;
+          closestDistance = t;
+        }
+      }
+      if (closestObject == null) {
+        break;
+      }
+
+      // Calculate the point of intersection.
+      Point intersection = ray.Start + closestDistance * ray.Direction;
+
+      // Get normal of object surface at impact of ray.
+      Vector normal = closestObject.GetNormalAtPoint(intersection);
+
+      foreach (var l in Lights) {
+        Vector toLightSource = (l.Location - intersection).Normalise();
+        float cosineLightAngle = normal * toLightSource;
+        if (cosineLightAngle <= 0.0f) {
+          // The light is below the surface.
           continue;
         }
-        if (o.IntersectDistance(new Ray(intersection, toLightSource)) > 0.0f) {
-          inShadow = true;
-          break;
+
+        bool inShadow = false;
+        foreach (var o in Objects) {
+          if (o == closestObject) {
+            continue;
+          }
+          if (o.IntersectDistance(new Ray(intersection, toLightSource)) > 0.0f) {
+            inShadow = true;
+            break;
+          }
+        }
+
+        if (!inShadow) {
+          var lambertianReflectance = (Colour)closestObject.Material.Colour * (Colour)l.Colour * cosineLightAngle;
+          output += lambertianReflectance;
+
+          var blinn = toLightSource - ray.Direction;
+          if (blinn.X != 0.0f && blinn.Y != 0.0f && blinn.Z != 0.0f) {
+            blinn = blinn.Normalise();
+            var blinnTerm = (Colour)l.Colour * closestObject.Material.SpecularTerm * (float)Math.Pow(Math.Max(blinn * normal, 0.0f), closestObject.Material.SpecularPower);
+            output += blinnTerm;
+          }
         }
       }
 
-      if (!inShadow) {
-        var lambertianReflectance = (Colour)closestObject.Material.Colour * (Colour)l.Colour * cosineLightAngle;
-        output += lambertianReflectance;
+      finalOutput += output * coefficient;
 
-        var R = (toLightSource - 2 * normal * (normal * toLightSource)).Normalise();
-        var specularTerm = R * ray.Direction;
-        if (specularTerm >= 0.0f) {
-          var phong = (Colour)l.Colour * closestObject.Material.SpecularTerm * (float)Math.Pow(specularTerm, closestObject.Material.SpecularPower);
-          output += phong;
-        }
-
-        //var blinn = toLightSource - ray.Direction;
-        //if (blinn.X != 0.0f && blinn.Y != 0.0f && blinn.Z != 0.0f) {
-        //  blinn = blinn.Normalise();
-        //  var blinnTerm = (Colour)l.Colour * closestObject.Material.SpecularTerm * (float)Math.Pow(Math.Max(blinn * normal, 0.0f), closestObject.Material.SpecularPower);
-        //  output += blinnTerm;
-        //}
-      }
-    }
-
-    return output;
+      var newRayDirection = (ray.Direction - 2 * normal * (normal * ray.Direction)).Normalise();
+      ray = new Ray(intersection, newRayDirection);
+      coefficient *= closestObject.Material.Reflectance;
+    } while (++count < MAX_ITERATIONS && coefficient > 0.0f);
+    return finalOutput;
   }
 }
 }

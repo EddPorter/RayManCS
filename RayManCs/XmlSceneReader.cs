@@ -128,6 +128,9 @@ public sealed class XmlSceneReader {
     if (material["SpecularPower"] != null) {
       m.SpecularPower = float.Parse(material["SpecularPower"].InnerText);
     }
+    if (material["Reflectance"] != null) {
+      m.Reflectance = float.Parse(material["Reflectance"].InnerText);
+    }
 
     return m;
   }

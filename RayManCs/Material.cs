@@ -14,6 +14,7 @@ public sealed class Material {
     Colour = Color.White;
     SpecularTerm = 0.0f;
     SpecularPower = 1.0f;
+    Reflectance = 0.0f;
   }
 
   /// <summary>
@@ -36,6 +37,14 @@ public sealed class Material {
   /// Gets and sets the material's specular term.
   /// </summary>
   public float SpecularTerm {
+    get;
+    set;
+  }
+
+  /// <summary>
+  /// Gets and sets the material's reflectance. Valid range is 0.0-1.0.
+  /// </summary>
+  public float Reflectance {
     get;
     set;
   }
