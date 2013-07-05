@@ -58,6 +58,13 @@
     <Compile Include="RayTests.cs" />
     <Compile Include="CameraTests.cs" />
     <Compile Include="ColourTests.cs" />
+    <Compile Include="DiffuseLightTests.cs" />
+    <Compile Include="LightTests.cs" />
+    <Compile Include="MaterialTests.cs" />
+    <Compile Include="OrthographicCameraTests.cs" />
+    <Compile Include="SceneTests.cs" />
+    <Compile Include="SphereTests.cs" />
+    <Compile Include="TriangleTests.cs" />
     <Compile Include="VectorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

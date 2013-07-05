@@ -18,6 +18,9 @@ public sealed class Scene {
   /// </summary>
   /// <param name="output">The class to which to send the generated image.</param>
   public Scene(IOutput output) {
+    if (output == null) {
+      throw new ArgumentNullException("output");
+    }
     this.output = output;
 
     SubSampling = 1u;
@@ -77,8 +80,7 @@ public sealed class Scene {
   /// Renders the image.
   /// </summary>
   public void Draw() {
-    // pseudo photo exposure
-    const float exposure = -1.00f;
+    float exposure = CalculateExposure();
 
     float widthRatio = (float)Camera.Width / output.Width;
     float heightRatio = (float)Camera.Height / output.Height;
@@ -103,8 +105,8 @@ public sealed class Scene {
             Colour c = ShootRay(r);
 
             Colour exposedColour = new Colour(1.0f - (float)Math.Exp(c.Red * exposure),
-                                              1.0f - (float)Math.Exp(c.Green * exposure),
-                                              1.0f - (float)Math.Exp(c.Blue * exposure));
+            1.0f - (float)Math.Exp(c.Green * exposure),
+            1.0f - (float)Math.Exp(c.Blue * exposure));
 
             outputColour += exposedColour * weight;
           }
@@ -114,6 +116,38 @@ public sealed class Scene {
         output.Write((uint)x, (uint)y, sRgbColour);
       }
     });
+  }
+
+  private float CalculateExposure() {
+    const uint SAMPLE_COUNT = 16;
+    uint sampleFactor = (uint)(Math.Min(Camera.Width - 1, Camera.Height - 1) / (float)SAMPLE_COUNT);
+    const float weight = 1.0f / (SAMPLE_COUNT * SAMPLE_COUNT);
+    float luminanceSquared = 0.0f;
+    ParallelOptions options = new ParallelOptions() {
+#if DEBUG
+      MaxDegreeOfParallelism = 1
+#endif
+    };
+    Parallel.For(0, SAMPLE_COUNT, (yCount) => {
+      uint y = (uint)yCount * sampleFactor;
+      for (var x = 0u; x < Camera.Width; x += sampleFactor) {
+        Ray r = Camera.GetRay(x, y);
+        Colour c = ShootRay(r);
+
+        float luminance = 0.2126f * c.Red + 0.715160f * c.Green + 0.072169f * c.Blue;
+        luminanceSquared += weight * (luminance * luminance);
+      }
+    });
+
+    float sqrtLuminance = (float)Math.Sqrt(luminanceSquared);
+    if (sqrtLuminance > 0.0f) {
+      // put the medium luminance to an intermediate gray value
+      //return logf(0.6f) / mediumLuminance;
+      //return - logf(1.0f - myScene.tonemap.fMidPoint) / mediumLuminance;
+      return (float)Math.Log(0.6) / sqrtLuminance;
+    }
+
+    return -1.0f;
   }
 
   /// <summary>
@@ -170,12 +204,10 @@ public sealed class Scene {
           var lambertianReflectance = (Colour)closestObject.Material.Colour * (Colour)l.Colour * cosineLightAngle;
           output += lambertianReflectance;
 
-          var blinn = toLightSource - ray.Direction;
-          if (blinn.X != 0.0f && blinn.Y != 0.0f && blinn.Z != 0.0f) {
-            blinn = blinn.Normalise();
-            var blinnTerm = (Colour)l.Colour * closestObject.Material.SpecularTerm * (float)Math.Pow(Math.Max(blinn * normal, 0.0f), closestObject.Material.SpecularPower);
-            output += blinnTerm;
-          }
+          var halfwayVector = (toLightSource - ray.Direction).Normalise();
+          var halfwayNormalAngle = halfwayVector * normal;
+          var blinnTerm = (Colour)l.Colour * closestObject.Material.SpecularTerm * (float)Math.Pow(Math.Max(halfwayNormalAngle, 0.0f), closestObject.Material.SpecularPower);
+          output += blinnTerm;
         }
       }
 

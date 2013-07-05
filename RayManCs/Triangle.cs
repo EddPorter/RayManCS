@@ -17,12 +17,25 @@ public sealed class Triangle : Object {
   /// <param name="p2">The second point of the triangle.</param>
   /// <param name="p3">The third point of the triangle.</param>
   public Triangle(Point p1, Point p2, Point p3) {
+    if (p1 == null) {
+      throw new ArgumentNullException("p1");
+    }
+    if (p2 == null) {
+      throw new ArgumentNullException("p2");
+    }
+    if (p3 == null) {
+      throw new ArgumentNullException("p3");
+    }
     P1 = p1;
     P2 = p2;
     P3 = p3;
 
     // Pre-calculate.
     normal = ((P2 - P1) % (P3 - P1)).Normalise();
+    if (normal == new Vector(0.0f, 0.0f, 0.0f)) {
+      // Points form a line.
+      throw new ArgumentOutOfRangeException("p3");
+    }
     d = normal * new Vector(P1.X, p1.Y, p1.Z);
   }
 
@@ -66,6 +79,10 @@ public sealed class Triangle : Object {
   /// <param name="ray">The ray to test.</param>
   /// <returns>The distance along the ray the first intersection with this object occurs. If no intersection, returns a negative value.</returns>
   public override float IntersectDistance(Ray ray) {
+    if (ray == null) {
+      throw new ArgumentNullException("ray");
+    }
+
     var nd = normal * ray.Direction;
     if (nd == 0) {
       return -1.0f;

@@ -1,36 +1,40 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace RayManCS {
 
+/// <summary>
+/// An abstract light source.
+/// </summary>
+public abstract class Light {
+
   /// <summary>
-  /// An abstract light source.
+  /// Creates a new light.
   /// </summary>
-  public abstract class Light {
-
-    /// <summary>
-    /// Creates a new light.
-    /// </summary>
-    /// <param name="location">The location of the light.</param>
-    public Light(Point location) {
-      Location = location;
-
-      Colour = Color.White;
+  /// <param name="location">The location of the light.</param>
+  public Light(Point location) {
+    if (location == null) {
+      throw new ArgumentNullException("location");
     }
+    Location = location;
 
-    /// <summary>
-    /// The colour of the light.
-    /// </summary>
-    public Color Colour {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// The location of the light source.
-    /// </summary>
-    public Point Location {
-      get;
-      private set;
-    }
+    Colour = Color.White;
   }
+
+  /// <summary>
+  /// The colour of the light.
+  /// </summary>
+  public Color Colour {
+    get;
+    set;
+  }
+
+  /// <summary>
+  /// The location of the light source.
+  /// </summary>
+  public Point Location {
+    get;
+    private set;
+  }
+}
 }
